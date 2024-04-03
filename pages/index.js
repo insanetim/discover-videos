@@ -1,5 +1,8 @@
 import Head from 'next/head'
 
+import Banner from '@/components/Banner'
+import Navbar from '@/components/Navbar'
+
 export default function Home() {
   return (
     <div>
@@ -7,7 +10,13 @@ export default function Home() {
         <title>Netflix</title>
       </Head>
 
-      <h1>Netflix</h1>
+      <Navbar username='User' />
+
+      <Banner
+        title='The Lord of the Rings'
+        subTitle='best movie ever'
+        imgUrl='/static/lotr.webp'
+      />
     </div>
   )
 }
