@@ -1,18 +1,34 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import Image from "next/legacy/image"
+import Image from 'next/legacy/image'
+
+import { magic } from '@/lib/magic-client'
 
 import styles from './styles.module.css'
 
-const Navbar = props => {
-  const { username } = props
+const Navbar = () => {
   const router = useRouter()
+  const [username, setUsername] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
 
   const handleToggleDropdown = () => {
     setShowDropdown(prev => !prev)
   }
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      try {
+        const { email } = await magic.user.getInfo()
+        if (email) {
+          setUsername(email)
+        }
+      } catch (error) {
+        console.error('Error retrieving email', error)
+      }
+    }
+    getUserInfo()
+  }, [])
 
   return (
     <div className={styles.container}>

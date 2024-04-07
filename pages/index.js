@@ -36,7 +36,7 @@ export default function Home({
         <title>Netflix</title>
       </Head>
 
-      <Navbar username='username@mail.com' />
+      <Navbar />
 
       <Banner
         title='The Lord of the Rings'
