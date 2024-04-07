@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
-import Banner from '@/components/Banner'
 import Navbar from '@/components/Navbar'
+import Banner from '@/components/Banner'
 import SectionCards from '@/components/SectionCards'
 
 import { getVideos, getPopularVideos } from '@/lib/videos'
@@ -31,43 +31,41 @@ export default function Home({
   popularVideos,
 }) {
   return (
-    <>
+    <div className={styles.main}>
       <Head>
         <title>Netflix</title>
       </Head>
 
-      <div className={styles.main}>
-        <Navbar username='User' />
+      <Navbar username='username@mail.com' />
 
-        <Banner
-          title='The Lord of the Rings'
-          subTitle='best movie ever'
-          imgUrl='/static/lotr.webp'
+      <Banner
+        title='The Lord of the Rings'
+        subTitle='best movie ever'
+        imgUrl='/static/lotr.webp'
+      />
+
+      <div className={styles.sectionWrapper}>
+        <SectionCards
+          title='Marvel'
+          videos={marvelVideos}
+          size='large'
         />
-
-        <div className={styles.sectionWrapper}>
-          <SectionCards
-            title='Marvel'
-            videos={marvelVideos}
-            size='large'
-          />
-          <SectionCards
-            title='Travel'
-            videos={travelVideos}
-            size='small'
-          />
-          <SectionCards
-            title='Productivity'
-            videos={productivityVideos}
-            size='medium'
-          />
-          <SectionCards
-            title='Popular'
-            videos={popularVideos}
-            size='small'
-          />
-        </div>
+        <SectionCards
+          title='Travel'
+          videos={travelVideos}
+          size='small'
+        />
+        <SectionCards
+          title='Productivity'
+          videos={productivityVideos}
+          size='medium'
+        />
+        <SectionCards
+          title='Popular'
+          videos={popularVideos}
+          size='small'
+        />
       </div>
-    </>
+    </div>
   )
 }
