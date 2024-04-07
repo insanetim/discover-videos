@@ -4,7 +4,7 @@ import Card from '../Card'
 import styles from './styles.module.css'
 
 const SectionCards = props => {
-  const { title, videos, size } = props
+  const { title, videos = [], size } = props
   const wrapperRef = useRef(null)
 
   useEffect(() => {
@@ -30,8 +30,8 @@ const SectionCards = props => {
       >
         {videos.map((video, idx) => (
           <Card
-            key={idx}
-            id={idx}
+            key={video.id}
+            idx={idx}
             imgUrl={video.imgUrl}
             size={size}
           />
