@@ -16,6 +16,18 @@ const Navbar = () => {
     setShowDropdown(prev => !prev)
   }
 
+  const handleSignout = async e => {
+    e.preventDefault()
+
+    try {
+      await magic.user.logout()
+    } catch (error) {
+      console.error('Error signing out', error)
+    } finally {
+      router.push('/login')
+    }
+  }
+
   useEffect(() => {
     const getUserInfo = async () => {
       try {
@@ -72,12 +84,12 @@ const Navbar = () => {
             {showDropdown && (
               <div className={styles.navDropdown}>
                 <div>
-                  <Link
+                  <a
                     className={styles.linkName}
-                    href='/login'
+                    onClick={handleSignout}
                   >
                     Sign out
-                  </Link>
+                  </a>
                   <div className={styles.lineWrapper}></div>
                 </div>
               </div>
