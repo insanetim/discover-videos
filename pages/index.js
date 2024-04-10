@@ -24,12 +24,10 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Home({
-  marvelVideos,
-  productivityVideos,
-  travelVideos,
-  popularVideos,
-}) {
+export default function Home(props) {
+  const { marvelVideos, productivityVideos, travelVideos, popularVideos } =
+    props
+
   return (
     <div className={styles.main}>
       <Head>
@@ -39,8 +37,9 @@ export default function Home({
       <Navbar />
 
       <Banner
+        videoId='V75dMMIW2B4'
         title='The Lord of the Rings'
-        subTitle='best movie ever'
+        subTitle='The Fellowship of the Ring'
         imgUrl='/static/lotr.webp'
       />
 

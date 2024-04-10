@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import Link from 'next/link'
 
 import Card from '../Card'
 import styles from './styles.module.css'
@@ -29,12 +30,16 @@ const SectionCards = props => {
         ref={wrapperRef}
       >
         {videos.map((video, idx) => (
-          <Card
+          <Link
             key={video.id}
-            idx={idx}
-            imgUrl={video.imgUrl}
-            size={size}
-          />
+            href={`/video/${video.id}`}
+          >
+            <Card
+              idx={idx}
+              imgUrl={video.imgUrl}
+              size={size}
+            />
+          </Link>
         ))}
       </div>
     </section>

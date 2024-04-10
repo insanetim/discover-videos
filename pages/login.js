@@ -4,8 +4,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/legacy/image'
 
-import { magic } from '@/lib/magic-client'
-
 import styles from '@/styles/Login.module.css'
 
 const Login = () => {
@@ -25,16 +23,9 @@ const Login = () => {
 
     if (email) {
       if (email === 'insanetim1986@gmail.com') {
-        try {
-          setIsLoading(true)
-          const didToken = await magic.auth.loginWithMagicLink({ email })
-          if (didToken) {
-            router.push('/')
-          }
-        } catch (error) {
-          console.error('Something went wrong logging in', error)
-          setIsLoading(false)
-        }
+        setIsLoading(true)
+        sessionStorage.setItem('isLoggedIn', email)
+        router.push('/')
       } else {
         setUserMsg('Something went wrong logging in')
       }

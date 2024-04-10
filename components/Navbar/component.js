@@ -3,8 +3,6 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/legacy/image'
 
-import { magic } from '@/lib/magic-client'
-
 import styles from './styles.module.css'
 
 const Navbar = () => {
@@ -18,28 +16,15 @@ const Navbar = () => {
 
   const handleSignout = async e => {
     e.preventDefault()
-
-    try {
-      await magic.user.logout()
-    } catch (error) {
-      console.error('Error signing out', error)
-    } finally {
-      router.push('/login')
-    }
+    sessionStorage.setItem('isLoggedIn', '')
+    router.push('/login')
   }
 
   useEffect(() => {
-    const getUserInfo = async () => {
-      try {
-        const { email } = await magic.user.getInfo()
-        if (email) {
-          setUsername(email)
-        }
-      } catch (error) {
-        console.error('Error retrieving email', error)
-      }
+    const email = sessionStorage.getItem('isLoggedIn')
+    if (email) {
+      setUsername(email)
     }
-    getUserInfo()
   }, [])
 
   return (
