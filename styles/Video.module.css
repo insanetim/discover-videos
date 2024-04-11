@@ -13,6 +13,7 @@
   outline: none;
   border-radius: 10px;
   border: 1px solid var(--shadow10);
+  overflow: hidden;
 }
 
 .overlay {
@@ -34,6 +35,7 @@
 
 /** Makes video edges curvy **/
 .videoPlayer {
+  display: block;
   width: 100%;
   aspect-ratio: calc(16 / 9);
   border-radius: 10px 10px 0px 0px;
@@ -52,9 +54,7 @@
 }
 
 .col1 {
-  max-height: 50vh /* 208px */;
-  overflow-y: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .publishTime {
