@@ -5,6 +5,7 @@ import Banner from '@/components/Banner'
 import SectionCards from '@/components/SectionCards'
 
 import { getVideos, getPopularVideos } from '@/lib/videos'
+import { startFetchMyQuery } from '@/lib/db/hasura'
 
 import styles from '@/styles/Home.module.css'
 
@@ -27,6 +28,8 @@ export async function getServerSideProps() {
 export default function Home(props) {
   const { marvelVideos, productivityVideos, travelVideos, popularVideos } =
     props
+
+  startFetchMyQuery()
 
   return (
     <div className={styles.main}>
