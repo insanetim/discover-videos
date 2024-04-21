@@ -9,10 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@magic-sdk/admin": "^2.4.0",
     "classnames": "^2.5.1",
-    "framer-motion": "^11.0.25",
-    "magic-sdk": "^28.0.2",
-    "next": "14.1.4",
+    "cookie": "^0.6.0",
+    "framer-motion": "^11.1.2",
+    "jsonwebtoken": "^9.0.2",
+    "magic-sdk": "^28.0.3",
+    "next": "^14.2.1",
     "react": "^18",
     "react-dom": "^18",
     "react-modal": "^3.16.1",
@@ -20,6 +23,6 @@
   },
   "devDependencies": {
     "eslint": "^8",
-    "eslint-config-next": "14.1.4"
+    "eslint-config-next": "^14.2.1"
   }
 }

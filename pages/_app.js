@@ -5,6 +5,7 @@ import { Roboto_Slab } from 'next/font/google'
 import Loading from '@/components/Loading'
 
 import '@/styles/globals.css'
+import { magic } from '@/lib/magic-client'
 
 const robotoSlab = Roboto_Slab({
   subsets: ['latin'],
@@ -17,12 +18,16 @@ export default function MyApp({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn')
-    if (isLoggedIn) {
-      setIsLoading(false)
-    } else {
-      router.push('/login')
+    const handleLoggedIn = async () => {
+      const isLoggedIn = await magic.user.isLoggedIn()
+
+      if (isLoggedIn) {
+        setIsLoading(false)
+      } else {
+        router.push('/login')
+      }
     }
+    handleLoggedIn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

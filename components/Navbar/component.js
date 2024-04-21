@@ -3,11 +3,14 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/legacy/image'
 
+import { magic } from '@/lib/magic-client'
+
 import styles from './styles.module.css'
 
 const Navbar = () => {
   const router = useRouter()
   const [username, setUsername] = useState('')
+  const [didToken, setDidToken] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
 
   const handleToggleDropdown = () => {
@@ -16,15 +19,24 @@ const Navbar = () => {
 
   const handleSignout = async e => {
     e.preventDefault()
-    sessionStorage.setItem('isLoggedIn', '')
+    await magic.user.logout()
     router.push('/login')
   }
 
   useEffect(() => {
-    const email = sessionStorage.getItem('isLoggedIn')
-    if (email) {
-      setUsername(email)
+    const applyUsernameInNav = async () => {
+      try {
+        const { email } = await magic.user.getInfo()
+        const didToken = await magic.user.getIdToken()
+        if (email) {
+          setUsername(email)
+          setDidToken(didToken)
+        }
+      } catch (error) {
+        console.error('Error retrieving email', error)
+      }
     }
+    applyUsernameInNav()
   }, [])
 
   return (
