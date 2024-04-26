@@ -4,11 +4,29 @@ import Navbar from '@/components/Navbar'
 import Banner from '@/components/Banner'
 import SectionCards from '@/components/SectionCards'
 
-import { getVideos, getPopularVideos } from '@/lib/videos'
+import {
+  getVideos,
+  getPopularVideos,
+  getWatchItAgainVideos,
+} from '@/lib/videos'
+import getUserMetadata from '@/utils/getUserMetadata'
 
 import styles from '@/styles/Home.module.css'
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req }) {
+  const { token, userId } = getUserMetadata(req)
+
+  if (!userId) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+
+  const watchItAgainVideos = await getWatchItAgainVideos(token, userId)
   const marvelVideos = await getVideos('marvel trailer')
   const productivityVideos = await getVideos('productivity')
   const travelVideos = await getVideos('travel')
@@ -20,13 +38,19 @@ export async function getServerSideProps() {
       productivityVideos,
       travelVideos,
       popularVideos,
+      watchItAgainVideos,
     },
   }
 }
 
 export default function Home(props) {
-  const { marvelVideos, productivityVideos, travelVideos, popularVideos } =
-    props
+  const {
+    marvelVideos,
+    productivityVideos,
+    travelVideos,
+    popularVideos,
+    watchItAgainVideos,
+  } = props
 
   return (
     <div className={styles.main}>
@@ -49,16 +73,25 @@ export default function Home(props) {
           videos={marvelVideos}
           size='large'
         />
+
+        <SectionCards
+          title='Watch it again'
+          videos={watchItAgainVideos}
+          size='small'
+        />
+
         <SectionCards
           title='Travel'
           videos={travelVideos}
           size='small'
         />
+
         <SectionCards
           title='Productivity'
           videos={productivityVideos}
           size='medium'
         />
+
         <SectionCards
           title='Popular'
           videos={popularVideos}
