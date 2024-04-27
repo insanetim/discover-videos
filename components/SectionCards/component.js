@@ -1,16 +1,21 @@
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
+import classNames from 'classnames'
 
 import Card from '../Card'
+
 import styles from './styles.module.css'
 
 const SectionCards = props => {
-  const { title, videos = [], size } = props
+  const { title, videos = [], size, shouldWrap = false, shouldScale } = props
   const wrapperRef = useRef(null)
 
   useEffect(() => {
     const wrapperElement = wrapperRef.current
     const handleScroll = e => {
+      if (shouldWrap) {
+        return
+      }
       e.preventDefault()
       wrapperElement.scrollLeft += e.deltaY
     }
@@ -20,13 +25,13 @@ const SectionCards = props => {
     return () => {
       wrapperElement.removeEventListener('wheel', handleScroll)
     }
-  }, [])
+  }, [shouldWrap])
 
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>{title}</h2>
       <div
-        className={styles.cardWrapper}
+        className={classNames(styles.cardWrapper, shouldWrap && styles.wrap)}
         ref={wrapperRef}
       >
         {videos.map((video, idx) => (
@@ -38,6 +43,7 @@ const SectionCards = props => {
               idx={idx}
               imgUrl={video.imgUrl}
               size={size}
+              shouldScale={shouldScale}
             />
           </Link>
         ))}
