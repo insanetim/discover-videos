@@ -15,6 +15,7 @@ const robotoSlab = Roboto_Slab({
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
+  const { pathname } = router
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export default function MyApp({ Component, pageProps }) {
       router.push('/login')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [pathname])
 
   useEffect(() => {
     const handleComplete = () => {
